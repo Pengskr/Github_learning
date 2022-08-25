@@ -11,21 +11,24 @@
 # 常用命令
 
 - git init 初始化一个Git仓库
-- git status 查看仓库当前的状态
-- git diff 如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+- git status 查看当前的状态
+- git diff 查看工作区和暂存区差异
+- git diff --cached 查看暂存区和仓库差异
+- git diff HEAD 查看工作区和仓库的差异
 - 添加文件到Git仓库，分两步：
   1. git add 文件名
   示例：
   git add file1.txt # 添加单个文件
   git add file2.txt file3.txt # 添加多个文件
-  git add . # 添加当前目录的所有文件到工作区
-  2. git commit 将工作区的文件提交到仓库
+  git add . # 添加当前目录的所有文件到暂存区(Stage)
+  2. git commit 将暂存区(Stage)的文件提交到仓库
   示例：
   git commit -m "提交说明"
-- cat 文件名 可以查看文件内容
+- cat &lt;文件名&gt; 可以查看文件内容
 - git log 显示从最近到最远的提交日志,如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数
 - git reflog 显示对版本的操作记录，可用于查看 commit_id
 - git reset --hard HEAD^ 从当前版本回退到上一个版本。HEAD指向的版本就是当前版本，往上100个版本写100个^比较容易数不过来，所以写成HEAD~100，也可以使用git reset --hard commit_id。
+- git checkout -- &lt;文件名&gt; 把文件在工作区的修改全部撤销，这里有两种情况：一种是文件自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；一种是文件已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。总之，就是让这个文件回到最近一次git commit或git add时的状态。
 
 
 
