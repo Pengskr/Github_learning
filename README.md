@@ -29,10 +29,7 @@
 - git reflog 显示对版本的操作记录，可用于查看 commit_id
 - git reset --hard HEAD^ 从当前版本回退到上一个版本。HEAD指向的版本就是当前版本，往上100个版本写100个^比较容易数不过来，所以写成HEAD~100，也可以使用git reset --hard commit_id。
 - git checkout -- &lt;文件名&gt; 把文件在工作区的修改全部撤销，这里有两种情况：一种是文件自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；一种是文件已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。总之，就是让这个文件回到最近一次git commit或git add时的状态。
-
-
-
-- git push 推送至远程仓库
-- git clone 获取远程仓库
-
-
+- git remote add origin &lt;仓库地址&gt; 将本地仓库和远程仓库进行关联,关联一个远程库时必须给远程库指定一个名字，origin是默认习惯命名
+- git push -u origin master 将本地master分支推送至远程仓库origin。加了参数-u后，以后即可直接用git push代替git push origin master，相当于记录了push到远端分支的默认值，这样当下次我们还想要继续push的这个远端分支的时候推送命令就可以简写成git push即可。但是前提是，第一次提交需要加 -u参数，后面的提交就直接可以 git push
+- git remote rm &lt;name&gt; 解除了本地和远程的绑定关系
+- git clone &lt;仓库地址&gt; 获取远程仓库
