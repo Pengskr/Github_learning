@@ -1,6 +1,6 @@
 # Github 与 Git 的区别：
 
-- Git是一个版本控制软件，电脑不联网的情况下也可以使用，用于处理本地的“仓库”（其实就是文件夹和文件夹内的文件）
+- Git是一个版本控制软件，电脑不联网的情况下也可以使用，用于处理本地的“仓库”
 - Github是一个托管平台，我们可以将我们本地的“仓库”上传至该平台储存，可以看作是一个云盘，只不过这个云盘上对公众开放的（开源）
 - 我们托管在Github上的“仓库”和本地的“仓库”是一一对应的关系，我们可以使用Git作为连接两个“仓库”的媒介（使用Git管理本地仓库、使用Git将本地仓库推送、更新到Github、将Github仓库克隆到本地、使用Git从Github仓库更新本地仓库）
 
@@ -10,26 +10,70 @@
 
 # 常用命令
 
-- git init 初始化一个Git仓库
-- git status 查看当前的状态
-- git diff 查看工作区和暂存区差异
-- git diff --cached 查看暂存区和仓库差异
-- git diff HEAD 查看工作区和仓库的差异
+- `git init`：在当前文件夹内初始化一个Git仓库
+- `git status`：查看仓库当前状态
 - 添加文件到Git仓库，分两步：
-  1. git add 文件名
-  示例：
-  git add file1.txt # 添加单个文件
-  git add file2.txt file3.txt # 添加多个文件
-  git add . # 添加当前目录的所有文件到暂存区(Stage)
-  2. git commit 将暂存区(Stage)的文件提交到仓库
-  示例：
-  git commit -m "提交说明"
-- cat &lt;文件名&gt; 可以查看文件内容
-- git log 显示从最近到最远的提交日志,如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数
-- git reflog 显示对版本的操作记录，可用于查看 commit_id
-- git reset --hard HEAD^ 从当前版本回退到上一个版本。HEAD指向的版本就是当前版本，往上100个版本写100个^比较容易数不过来，所以写成HEAD~100，也可以使用git reset --hard commit_id。
-- git checkout -- &lt;文件名&gt; 把文件在工作区的修改全部撤销，这里有两种情况：一种是文件自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；一种是文件已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。总之，就是让这个文件回到最近一次git commit或git add时的状态。
-- git remote add origin &lt;仓库地址&gt; 将本地仓库和远程仓库进行关联,关联一个远程库时必须给远程库指定一个名字，origin是默认习惯命名
-- git push -u origin master 将本地master分支推送至远程仓库origin。加了参数-u后，以后即可直接用git push代替git push origin master，相当于记录了push到远端分支的默认值，这样当下次我们还想要继续push的这个远端分支的时候推送命令就可以简写成git push即可。但是前提是，第一次提交需要加 -u参数，后面的提交就直接可以 git push
-- git remote rm &lt;name&gt; 解除了本地和远程的绑定关系
-- git clone &lt;仓库地址&gt; 获取远程仓库
+    1. `git add 文件名`：添加文件到暂存区(Stage)  
+    示例：  
+    git add file1.txt # 添加单个文件  
+    git add file2.txt file3.txt # 添加多个文件  
+    git add . # 添加当前目录的所有文件到暂存区(Stage)  
+  2. `git commit -m "提交说明" `：将暂存区(Stage)的文件提交到git仓库
+- `git remote add origin REMOTE-URL`：建立git仓库与远程仓库的链接关系,关联一个远程仓库时必须给远程库指定一个名字，origin是默认习惯命名
+- `git remote -v`：验证远程 URL 设置是否正确，设置正确则会出现以下提示
+  ```
+  origin  git@github.com:username/repository.git (fetch)
+  origin  git@github.com:username/repository.git (push)
+  ```
+- `git remote set-url origin REMOTE-URL`：更新远程仓库地址
+- `git remote rm origin`：解除本地仓库和远程仓库的链接关系，删除后，运行 `git remote -v` 检查是否已成功解除，输出应该为空。
+- `git push -u origin main`：将本地 main 分支推送至远程仓库 origin  
+  加了参数-u后，以后即可直接用`git push`代替`git push origin master`，相当于记录了push到远端分支的默认值，这样当下次我们还想要继续push的这个远端分支的时候推送命令就可以简写成`git push`即可。但是前提是，第一次提交需要加 -u参数，后面的提交就直接可以 `git push`
+- `git clone [<选项>] <远程仓库地址> [<本地目录>]`：git clone 是 Git 中用于从远程仓库复制代码到本地的命令。它不仅会下载整个代码库的内容，还会包括**所有的版本历史记录（.git 元数据）**。克隆完成后，本地仓库将自动与远程仓库关联。不制定`[<本地目录>]`将会自动复制到当前目录。
+  ```
+  git clone --branch branch_name <远程仓库地址> [<本地目录>] : 默认情况下，git clone 会克隆默认分支（通常是 main 或 master）。要克隆特定分支，可以使用 --branch 或 -b 选项
+  git clone --depth 1 <远程仓库地址> [<本地目录>] : 只克隆当前仓库的代码，而不需要完整的版本历史
+  ```
+- `git diff`：查看工作区和暂存区差异
+- `git diff --cached`：查看暂存区和仓库差异
+- `git diff HEAD`：查看工作区和仓库的差异
+- `cat 文件名`：可以查看文件内容
+- `git log`：显示从最近到最远的提交日志,如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数
+- `git reflog`：显示对版本的操作记录，可用于查看 commit_id
+- `git reset --hard HEAD^`：从当前版本回退到上一个版本。HEAD指向的版本就是当前版本，往上100个版本写100个^比较容易数不过来，所以写成HEAD~100，也可以使用git reset --hard commit_id
+
+# 如何将一个本地已有文件夹的内容上传到 Github
+Git的下载安装与配置请参考其他教程  
+
+1. 在 Github 上建立同名 repository  
+为避免错误，请勿使用 README、许可或 gitignore 文件初始化新存储库。([参考：使用 Git 将本地存储库添加到 GitHub](https://docs.github.com/zh/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github))
+
+2. 打开终端，切换到文件夹目录
+    ```
+    cd 文件夹地址
+    ```
+3. 初始化 Git 仓库
+    ```
+    git init
+    ```
+4. 添加文件到 Git暂存区  
+    ```
+    git add 文件名  
+    示例：
+    git add file1.txt # 添加单个文件
+    git add file2.txt file3.txt # 添加多个文件 
+    git add . # 添加当前目录的所有文件到暂存区
+    ```
+5. 提交到本地仓库
+   ```
+   git commit -m "提交说明"
+   ```
+6. 链接远程仓库(将 REMOTE-URL 替换为 GitHub 上的存储库完整 URL)
+   ```
+   git remote add origin REMOTE-URL 
+   ```
+   使用 git remote -v 验证远程 URL 设置是否正确
+7. 将本地仓库推送到 Github
+   ```
+   git push -u origin main # 第一次推送，后续推送只需 git push
+   ```
