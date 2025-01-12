@@ -34,6 +34,7 @@
   git clone --branch branch_name <远程仓库地址> [<本地目录>] : 默认情况下，git clone 会克隆默认分支（通常是 main 或 master）。要克隆特定分支，可以使用 --branch 或 -b 选项
   git clone --depth 1 <远程仓库地址> [<本地目录>] : 只克隆当前仓库的代码，而不需要完整的版本历史
   ```
+- `rm -rf .git`:删除本地 git 仓库
 - `git diff`：查看工作区和暂存区差异
 - `git diff --cached`：查看暂存区和仓库差异
 - `git diff HEAD`：查看工作区和仓库的差异
