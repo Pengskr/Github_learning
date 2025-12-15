@@ -43,6 +43,40 @@
 - `git reflog`：显示对版本的操作记录，可用于查看 commit_id
 - `git reset --hard HEAD^`：从当前版本回退到上一个版本。HEAD指向的版本就是当前版本，往上100个版本写100个^比较容易数不过来，所以写成HEAD~100，也可以使用git reset --hard commit_id
 
+## .gitignore 文件——如何在 Git 中忽略文件和文件夹
+
+通常，一个 `.gitignore` 文件会被放在仓库的根目录下。
+
+- 忽略文件和文件夹
+
+  ``` 
+  # 忽略所有.a文件 
+  *.a 
+  # 但不忽略 lib.a 
+  !lib.a 
+  # 只忽略项目根目录下的 TODO 文件，不包括子目录 
+  /TODO 
+  # 忽略 build/ 目录下的所有文件 
+  build/ 
+  # 忽略 doc/notes.txt 
+  doc/notes.txt 
+  忽略所有 .log 文件
+  *.log：
+  ```
+
+- 忽略已提交的文件  
+  如果文件已经被 Git 追踪，需要两步：
+  - 从索引中移除 (保留本地文件):
+    ```
+    git rm --cached <文件名或目录名>
+    ```
+  - 将该文件/目录添加到 .gitignore 中，再提交 .gitignore。
+    ```
+    echo "*.log" >> .gitignore
+    git add .gitignore
+    git commit -m "Stop tracking log files"
+    ```
+
 # 如何将一个本地已有文件夹的内容上传到 Github
 Git的下载安装与配置请参考其他教程  
 
